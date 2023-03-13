@@ -8,3 +8,6 @@
 #matlab data files
 *.ani
 *.dat
+
+# Mac files
+.DS_Store

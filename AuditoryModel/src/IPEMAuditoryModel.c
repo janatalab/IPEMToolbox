@@ -50,7 +50,6 @@ long AudiProg (long inNumOfChannels, double inFirstFreq, double inFreqDist,
 
 void IPEMAuditoryModel_SetDefaults();
 
-
 // Constants
 // ---------
 const long	cDefNumOfChannels = 40;
@@ -68,7 +67,7 @@ const long	cDefSoundFileFormat = sffWav;
 //  - if -1 is specified (for a numeric value)
 //  - if NULL is specified (for a string)
 // Was the constructor of the original cpp file (S.T.)
-IPEMAuditoryModel_Setup(long inNumOfChannels,
+void IPEMAuditoryModel_Setup(long inNumOfChannels,
 									double inFirstFreq,
 									double inFreqDist,
 									const char* inInputFileName,

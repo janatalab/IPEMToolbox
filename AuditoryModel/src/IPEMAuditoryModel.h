@@ -60,5 +60,7 @@ char	mOutputFilePath[256];
 double	mSampleFrequency;
 long	mSoundFileFormat;
 
+void IPEMAuditoryModel_Setup(); // added 
+long IPEMAuditoryModel_Process();
 
 
