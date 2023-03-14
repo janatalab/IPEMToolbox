@@ -107,7 +107,7 @@ Remainder = path;
 while ~isempty(Remainder)
     [PathEntry,Remainder] = strtok(Remainder,pathsep);
     CurrentPaths = cat(1,CurrentPaths,{PathEntry});
-end;
+end
 
 % Get code root
 theCodeRoot = which('IPEMSetup');
@@ -119,7 +119,7 @@ for i = 1:size(Paths,1)
     if ~ismember(Path,CurrentPaths)
         addpath(Path);
     end
-end;
+end
 
 isOctave = exist('OCTAVE_VERSION') ~= 0;
 if (isOctave)
@@ -128,7 +128,11 @@ if (isOctave)
   disp(['was developed with/for (which is ' MatlabVersion ').']);
   disp('Be aware of possible compatibility problems.');
 else
-  path2rc;
+  if exist('savepath','file')
+      savepath; 
+  else
+      path2rc;
+  end
 end
 
 % Setup preferences for the IPEM Toolbox

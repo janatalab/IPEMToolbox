@@ -78,7 +78,7 @@ if or(isempty(inSignal),isempty(inSampleFreq))
    fprintf(2,['ERROR: You must specify an input signal with its sample frequency\n' ...
               '       as the first 2 arguments.\n']);
    return;
-end;
+end
 
 % Check for mono signal and transpose if needed
 if (size(inSignal,1) ~= 1)
@@ -87,8 +87,8 @@ if (size(inSignal,1) ~= 1)
       return;
    else
        inSignal = inSignal';
-   end;
-end;
+   end
+end
 
 % Store the current directory and change it to the path of the auditory model
 OldPath = cd;
@@ -105,7 +105,13 @@ else
 end
 
 % Write sound to a temp file
-wavwrite(NewSound,NewSampleFreq,16,'input.wav');
+if exist('audiowrite', 'file')
+    audiowrite('input.wav', NewSound, NewSampleFreq, 'BitsPerSample', 16);
+elseif exist('wavwrite', 'file')
+    wavwrite(NewSound,NewSampleFreq,16,'input.wav');
+else
+    error('No suitable audio writer available')
+end
 
 % Let the auditory model process the sound
 % (samplefreq. 22050 Hz, input.wav as input file, nerve_image.ani as output file)
@@ -113,7 +119,7 @@ Result = IPEMProcessAuditoryModel('input.wav','','nerve_image.ani','',NewSampleF
 if (Result ~= 0)
     cd(OldPath);
     error('Error while processing file with IPEMProcessAuditoryModel...');
-end;
+end
 
 % Load the result of the auditory model and reset the current directory
 outANI = textread('nerve_image.ani','%f');
